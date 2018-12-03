@@ -2,7 +2,6 @@ let speciesMap = new Map();
 let otherSpeciesMap = new Map();
 let speciesStatusMap = new Map();
 
-
 let dataset;
 let xScale, yScale;
 let xAxis, yAxis;
@@ -18,16 +17,32 @@ function rowConverter(row) {
     }
 }
 
+//Generates a count of each specific species within the dataset
 function generateSpeciesCount(dataset) {
     for (let i = 0; i < dataset.length; i++) {
         let row = dataset[i];
         if (speciesMap.has(row.species)) {
             speciesMap.set(row.species, speciesMap.get(row.species) + 1);
+            if (row.species == "Other") {
+                let otherSpecies = row.breed.split(" ");
+                if (otherSpeciesMap.has(otherSpecies[0])) {
+                    otherSpeciesMap.set(otherSpecies[0], otherSpeciesMap.get(otherSpecies[0]) + 1);
+                }
+                else {
+                    otherSpeciesMap.set(otherSpecies[0], 1);
+                }
+            }
         }
         else {
             speciesMap.set(row.species, 1);
         }
     }   
+}
+
+function generateSpeciesCondition(dataset) {
+    for (let i = 0; i < dataset.length; i++) {
+        
+    }
 }
 
 /*
